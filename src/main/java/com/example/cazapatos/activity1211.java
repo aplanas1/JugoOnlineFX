@@ -23,16 +23,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+
 public class activity1211 extends Application {
     
     Label lbl = new Label();
     Label lblscore = new Label();
-     
+
     int flag, flag2, flag3, flag4, flag5, flag6 = 0;
+
+
+    Client client = new Client(5557, "224.0.10.20",this);
 
     int gamealive = 1;
     
-    Image splash = new Image(getClass().getResourceAsStream("pics/SplashScreen.jpg"));
+    Image splash = new Image(getClass().getResourceAsStream("pics/splash.jpg"));
     ImageView splashscreen = new ImageView();
     
     Image wood = new Image(getClass().getResourceAsStream("pics/bg.jpg"));
@@ -93,11 +98,14 @@ public class activity1211 extends Application {
 //    Button btn2 = new Button();
     Button btnrestart = new Button();
     
-    Image gameover = new Image(getClass().getResourceAsStream("pics/go.png"));
+    Image gameover = new Image(getClass().getResourceAsStream("pics/splash.jpg"));
     ImageView gmeovr = new ImageView(gameover);
-    
+
+    public activity1211() throws IOException {
+    }
+
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         
         lbl.setLayoutX(5); lbl.setLayoutY(5);
         lbl.setText("SCORE:");
@@ -396,12 +404,12 @@ public class activity1211 extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-     public void score(int iskor){
+    public void score(int iskor){
             lblscore.setText(Integer.toString(Integer.parseInt(lblscore.getText()) + iskor));
         
         }
      
-      public void gameover(){
+    public void gameover(){
             pathTransition.stop();
             pathTransition2.stop();
             pathTransition3.stop();
@@ -413,9 +421,10 @@ public class activity1211 extends Application {
             gmeovr.toFront();
             btnrestart.setOpacity(1);
             btnrestart.toFront();
+
     }
       
-      public void restartgame(){
+    public void restartgame(){
              
              flag = 0;
              flag2 = 0;
