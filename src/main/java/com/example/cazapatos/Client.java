@@ -2,102 +2,71 @@ package com.example.cazapatos;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Scanner;
 
 public class Client {
-    /* Client afegit al grup multicast SrvVelocitats.java que representa un velocímetre */
+    InetAddress serverIP;
+    int serverPort;
+    DatagramSocket socket;
+    Scanner sc;
+    String nom;
 
-    private boolean continueRunning = true;
-    private MulticastSocket socket;
-    private InetAddress multicastIP;
-    private int port;
-    NetworkInterface netIf;
-    InetSocketAddress group;
-    activity1211 game;
-
-    int hola = 0;
-    int adios = 0;
-    int pepe = 0;
-    int cola = 0;
-    int caracola = 0;
-    int nariz = 0;
-    int jota = 0;
-
-
-    public Client(int portValue, String strIp, activity1211 game) throws IOException {
-        multicastIP = InetAddress.getByName(strIp);
-        port = portValue;
-        socket = new MulticastSocket(port);
-        netIf = socket.getNetworkInterface();
-        group = new InetSocketAddress(strIp,portValue);
-        this.game = game;
+    public Client() {
+        sc = new Scanner(System.in);
     }
 
-    public void runClient() throws IOException{
-        DatagramPacket packet;
-        byte [] receivedData = new byte[10];
-
-        socket.joinGroup(group,netIf);
-        System.out.printf("Connectat a %s:%d%n",group.getAddress(),group.getPort());
-
-        while(continueRunning){
-            packet = new DatagramPacket(receivedData, 10);
-            socket.setSoTimeout(5000);
-            try{
-                socket.receive(packet);
-                continueRunning = getData(packet.getData(), packet.getLength());
-            }catch(SocketTimeoutException e){
-                System.out.println("S'ha perdut la connexió amb el servidor.");
-                continueRunning = false;
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        socket.leaveGroup(group,netIf);
-        socket.close();
+    public void init(String host, int port) throws SocketException, UnknownHostException {
+        serverIP = InetAddress.getByName(host);
+        serverPort = port;
+        socket = new DatagramSocket();
     }
 
-    protected  boolean getData(byte[] data, int length) {
-        boolean ret=true;
+    public void runClient(String data) throws IOException {
+        byte [] receivedData = new byte[1024];
+        byte [] sendingData;
 
-        String rebut = new String(data,0,length);
-        int numero = 0;
-
-        if (rebut.equals("Hola")){
-            hola++;
-            numero=hola;
-        }
-        if (rebut.equals("Adios")){
-            adios++;
-            numero=adios;
-        }
-        if (rebut.equals("Pepe")){
-            pepe++;
-            numero=pepe;
-        }
-        if (rebut.equals("Cola")){
-            cola++;
-            numero=cola;
-        }
-        if (rebut.equals("Caracola")){
-            caracola++;
-            numero=caracola;
-        }
-        if (rebut.equals("Nariz")){
-            nariz++;
-            numero=nariz;
-        }
-        if (rebut.equals("Jota")){
-            jota++;
-            numero=jota;
+        sendingData = data.getBytes();
+        while (mustContinue(sendingData)) {
+            DatagramPacket packet = new DatagramPacket(sendingData,sendingData.length,serverIP,serverPort);
+            socket.send(packet);
+            packet = new DatagramPacket(receivedData,1024);
+            socket.receive(packet);
+            sendingData = getDataToRequest(packet.getData(), packet.getLength());
         }
 
-        System.out.println("Numero de veces: (" + numero + "), Palabra: " + rebut);
+    }
 
-        return ret;
+    //Resta de conversa que se li envia al server
+    private byte[] getDataToRequest(byte[] data, int length) {
+        String rebut = new String(data,0, length);
+        //Imprimeix el nom del client + el que es reb del server i demana més dades
+        System.out.print(rebut);
+        String msg = sc.nextLine();
+        return msg.getBytes();
+    }
+
+    //primer missatge que se li envia al server
+    private byte[] getFirstRequest() {
+        System.out.println("Entra el teu numero: ");
+        nom = sc.nextLine();
+        return nom.getBytes();
+    }
+
+    //Si se li diu adeu al server el client es desconnecta
+    private boolean mustContinue(byte [] data) {
+        String msg = new String(data).toLowerCase();
+        return !msg.equals("adeu");
+    }
+
+    public static void main(String[] args) {
+        Client client = new Client();
+        try {
+            client.init("localhost",5555);
+            client.runClient("AAA,24");
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+
     }
 
 }

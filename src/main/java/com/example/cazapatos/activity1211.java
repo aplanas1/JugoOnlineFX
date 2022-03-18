@@ -32,9 +32,6 @@ public class activity1211 extends Application {
 
     int flag, flag2, flag3, flag4, flag5, flag6 = 0;
 
-
-    Client client = new Client(5557, "224.0.10.20",this);
-
     int gamealive = 1;
     
     Image splash = new Image(getClass().getResourceAsStream("pics/splash.jpg"));
