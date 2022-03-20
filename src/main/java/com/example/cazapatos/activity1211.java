@@ -30,8 +30,6 @@ public class activity1211 extends Application {
     Label lbl = new Label();
     Label lblscore = new Label();
 
-    int flag, flag2, flag3, flag4, flag5, flag6 = 0;
-
     int gamealive = 1;
     
     Image splash = new Image(getClass().getResourceAsStream("pics/splash.jpg"));
@@ -42,58 +40,17 @@ public class activity1211 extends Application {
     
     Image target = new Image(getClass().getResourceAsStream("pics/pointer.png"));
     ImageView targett = new ImageView(target);
-    
-    Image bird = new Image(getClass().getResourceAsStream("pics/b.gif"));
-    Image birdx = new Image(getClass().getResourceAsStream("pics/blood.png"));
-    ImageView birda = new ImageView(bird);
-    
-    FadeTransition ft = new FadeTransition(Duration.millis(3000), birda);
-    Path path = new Path();
-    PathTransition pathTransition = new PathTransition();
-    
-    Image bird2 = new Image(getClass().getResourceAsStream("pics/b.gif"));
-    Image bird2x = new Image(getClass().getResourceAsStream("pics/blood.png"));
-    ImageView birdb = new ImageView(bird2);
-    
-    FadeTransition ft2 = new FadeTransition(Duration.millis(3000), birdb);
-    Path path2 = new Path();
-    PathTransition pathTransition2 = new PathTransition();
-    
-    Image bird3 = new Image(getClass().getResourceAsStream("pics/x.gif"));
-    Image bird3x = new Image(getClass().getResourceAsStream("pics/blood.png"));
-    ImageView birdc = new ImageView(bird3);
-    
-    FadeTransition ft3 = new FadeTransition(Duration.millis(3000), birdc);
-    Path path3 = new Path();
-    PathTransition pathTransition3 = new PathTransition();
-    
-    Image bird4 = new Image(getClass().getResourceAsStream("pics/b.gif"));
-    Image bird4x = new Image(getClass().getResourceAsStream("pics/blood.png"));
-    ImageView birdd = new ImageView(bird4);
-    
-    FadeTransition ft4 = new FadeTransition(Duration.millis(3000), birdd);
-    Path path4 = new Path();
-    PathTransition pathTransition4 = new PathTransition();
-    
-    Image bird5 = new Image(getClass().getResourceAsStream("pics/b.gif"));
-    Image bird5x = new Image(getClass().getResourceAsStream("pics/blood.png"));
-    ImageView birde = new ImageView(bird5);
-    
-    FadeTransition ft5 = new FadeTransition(Duration.millis(3000), birde);
-    Path path5 = new Path();
-    PathTransition pathTransition5 = new PathTransition();
-    
-    Image bird6 = new Image(getClass().getResourceAsStream("pics/x.gif"));
-    Image bird6x = new Image(getClass().getResourceAsStream("pics/blood.png"));
-    ImageView birdf = new ImageView(bird6);
-    
-    FadeTransition ft6 = new FadeTransition(Duration.millis(3000), birdf);
-    Path path6 = new Path();
-    PathTransition pathTransition6 = new PathTransition();
+
+    Bird bird1 = new Bird();
+    Bird bird2 = new Bird();
+    Bird bird3 = new Bird();
+    Bird bird4 = new Bird();
+    Canary canary1 = new Canary();
+    Canary canary2 = new Canary();
     
     Button btn = new Button();
-//    Button btn2 = new Button();
     Button btnrestart = new Button();
+    Button btnscore = new Button();
     
     Image gameover = new Image(getClass().getResourceAsStream("pics/splash.jpg"));
     ImageView gmeovr = new ImageView(gameover);
@@ -120,217 +77,225 @@ public class activity1211 extends Application {
         
         background.setImage(wood);
         background.setX(5); background.setY(50);
-        background.setFitWidth(500); background.setFitHeight(500);
+        background.setFitWidth(1280); background.setFitHeight(720);
         background.setOpacity(0);
         
         splashscreen.setImage(splash);
         splashscreen.setX(5); splashscreen.setY(50);
-        splashscreen.setFitWidth(500); splashscreen.setFitHeight(500);
+        splashscreen.setFitWidth(1280); splashscreen.setFitHeight(720);
         
         targett.setX(85); targett.setY(80);
         targett.setFitWidth(500); targett.setFitHeight(500);
-        
-                 
-        birda.setX(5); birda.setY(60);
-        birda.setFitWidth(150);birda.setFitHeight(150);
-        
-        
-        ft.setFromValue(1.0);
-        ft.setToValue(0.0);
-        ft.setCycleCount(1);
-        
-        
-        path.getElements().add(new MoveTo(80,100));
-        path.getElements().add(new CubicCurveTo(465, 0, 345, 120, 200, 120));
-        path.getElements().add(new CubicCurveTo(89, 123, 123, 240, 234, 240));
-//        path.getElements().add(new HLineTo(550));
-        pathTransition.setDuration(Duration.seconds(5));
-        pathTransition.setPath(path);
-        pathTransition.setNode(birda);
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setCycleCount(Timeline.INDEFINITE);
-//        pathTransition.setAutoReverse(true);
-        
-       birda.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+
+        // BIRDS
+        // START BIRD 1
+        bird1.getBirdo().setX(5);
+        bird1.getBirdo().setY(60);
+        bird1.getBirdo().setFitWidth(150);
+        bird1.getBirdo().setFitHeight(150);
+
+        bird1.getFt().setFromValue(1.0);
+        bird1.getFt().setToValue(0.0);
+        bird1.getFt().setCycleCount(1);
+
+        bird1.getPath().getElements().add(new MoveTo(80,100));
+        bird1.getPath().getElements().add(new CubicCurveTo(465, 0, 345, 120, 200, 120));
+        bird1.getPath().getElements().add(new CubicCurveTo(89, 123, 123, 240, 234, 240));
+        bird1.getPathTransition().setDuration(Duration.seconds(5));
+        bird1.getPathTransition().setPath(bird1.getPath());
+        bird1.getPathTransition().setNode(bird1.getBirdo());
+        bird1.getPathTransition().setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        bird1.getPathTransition().setCycleCount(Timeline.INDEFINITE);
+
+        bird1.getBirdo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-                if (flag == 0 && gamealive == 1){
-                pathTransition.stop();
-                ft.play();
-                birda.setImage(birdx);
-                score(5);
+                if (bird1.getFlag() == 0 && gamealive == 1){
+                    bird1.getPathTransition().stop();
+                    bird1.getFt().play();
+                    bird1.getBirdo().setImage(bird1.getBlood());
+                    score(5);
                 }
-                flag = 1;
-                }
-    
+                bird1.setFlag(1);
+            }
+
         });
-       
-        birdb.setX(5); birdb.setY(60);
-        birdb.setFitWidth(150);birdb.setFitHeight(150);
-        
-        ft2.setFromValue(1.0);
-        ft2.setToValue(0.0);
-        ft2.setCycleCount(1);
-        
-        
-        path2.getElements().add(new MoveTo(80,100));
-        path2.getElements().add(new HLineTo(550));
-        pathTransition2.setDuration(Duration.seconds(3));
-        pathTransition2.setPath(path2);
-        pathTransition2.setNode(birdb);
-        pathTransition2.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition2.setCycleCount(Timeline.INDEFINITE);
-//        pathTransition.setAutoReverse(true);
-        
-       birdb.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+        // END BIRD 1
+
+        // START BIRD 2
+        bird2.getBirdo().setX(5);
+        bird2.getBirdo().setY(60);
+        bird2.getBirdo().setFitWidth(150);
+        bird2.getBirdo().setFitHeight(150);
+
+        bird2.getFt().setFromValue(1.0);
+        bird2.getFt().setToValue(0.0);
+        bird2.getFt().setCycleCount(1);
+
+        bird2.getPath().getElements().add(new MoveTo(80,100));
+        bird2.getPath().getElements().add(new HLineTo(550));
+        bird2.getPathTransition().setDuration(Duration.seconds(3));
+        bird2.getPathTransition().setPath(bird2.getPath());
+        bird2.getPathTransition().setNode(bird2.getBirdo());
+        bird2.getPathTransition().setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        bird2.getPathTransition().setCycleCount(Timeline.INDEFINITE);
+
+        bird2.getBirdo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-                if (flag2 == 0 && gamealive == 1){
-                pathTransition2.stop();
-                ft2.play();
-                birdb.setImage(bird2x);
-                score(5);
+                if (bird2.getFlag() == 0 && gamealive == 1){
+                    bird2.getPathTransition().stop();
+                    bird2.getFt().play();
+                    bird2.getBirdo().setImage(bird2.getBlood());
+                    score(5);
                 }
-                flag2 = 1;
-                }
-    
+                bird2.setFlag(1);
+            }
+
         });
-       
-        birdc.setX(5); birdc.setY(60);
-        birdc.setFitWidth(80);birdc.setFitHeight(80);
-        
-        ft3.setFromValue(1.0);
-        ft3.setToValue(0.0);
-        ft3.setCycleCount(1);
-        
-        
-        path3.getElements().add(new MoveTo(80,100));
-        path3.getElements().add(new CubicCurveTo(54, 544, 234, 345, 344, 345));
-        path3.getElements().add(new CubicCurveTo(567, 23, 645, 234, 344, 234));
-        pathTransition3.setDuration(Duration.seconds(2));
-        pathTransition3.setPath(path3);
-        pathTransition3.setNode(birdc);
-        pathTransition3.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition3.setCycleCount(Timeline.INDEFINITE);
-//        pathTransition.setAutoReverse(true);
-        
-       birdc.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+        // END BIRD 2
+
+        // START BIRD 3
+        bird3.getBirdo().setX(5);
+        bird3.getBirdo().setY(60);
+        bird3.getBirdo().setFitWidth(150);
+        bird3.getBirdo().setFitHeight(150);
+
+        bird3.getFt().setFromValue(1.0);
+        bird3.getFt().setToValue(0.0);
+        bird3.getFt().setCycleCount(1);
+
+        bird3.getPath().getElements().add(new MoveTo(80,100));
+        bird3.getPath().getElements().add(new CubicCurveTo(524, 54, 24, 145, 4, 0));
+        bird3.getPath().getElements().add(new CubicCurveTo(0, 23, 0, 34, 423, 234));
+        bird3.getPathTransition().setDuration(Duration.seconds(5));
+        bird3.getPathTransition().setPath(bird3.getPath());
+        bird3.getPathTransition().setNode(bird3.getBirdo());
+        bird3.getPathTransition().setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        bird3.getPathTransition().setCycleCount(Timeline.INDEFINITE);
+
+        bird3.getBirdo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-                if (flag3 == 0 && gamealive == 1){
-//                pathTransition3.stop();
-//                ft3.play();
-                birdc.setImage(bird3x);
-                score(5);
-                gameover();
+                if (bird3.getFlag() == 0 && gamealive == 1){
+                    bird3.getPathTransition().stop();
+                    bird3.getFt().play();
+                    bird3.getBirdo().setImage(bird3.getBlood());
+                    score(15);
                 }
-                flag3 = 1;
-                }
-    
+                bird3.setFlag(1);
+            }
+
         });
-       
-        birdd.setX(5); birdd.setY(250);
-        birdd.setFitWidth(150);birdd.setFitHeight(150);
-        
-        ft4.setFromValue(1.0);
-        ft4.setToValue(0.0);
-        ft4.setCycleCount(1);
-        
-        
-        path4.getElements().add(new MoveTo(80,100));
-        path4.getElements().add(new CubicCurveTo(524, 54, 24, 145, 4, 0));
-        path4.getElements().add(new CubicCurveTo(0, 23, 0, 34, 423, 234));
-        pathTransition4.setDuration(Duration.seconds(5));
-        pathTransition4.setPath(path4);
-        pathTransition4.setNode(birdd);
-        pathTransition4.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition4.setCycleCount(Timeline.INDEFINITE);
-//        pathTransition.setAutoReverse(true);
-        
-       birdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+        // END BIRD 3
+
+        // START BIRD 4
+        bird4.getBirdo().setX(5);
+        bird4.getBirdo().setY(60);
+        bird4.getBirdo().setFitWidth(150);
+        bird4.getBirdo().setFitHeight(150);
+
+        bird4.getFt().setFromValue(1.0);
+        bird4.getFt().setToValue(0.0);
+        bird4.getFt().setCycleCount(1);
+
+        bird4.getPath().getElements().add(new MoveTo(80,100));
+        bird4.getPath().getElements().add(new HLineTo(855));
+        bird4.getPathTransition().setDuration(Duration.seconds(6));
+        bird4.getPathTransition().setPath(bird4.getPath());
+        bird4.getPathTransition().setNode(bird4.getBirdo());
+        bird4.getPathTransition().setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        bird4.getPathTransition().setCycleCount(Timeline.INDEFINITE);
+
+        bird4.getBirdo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-                if (flag4 == 0 && gamealive == 1){
-                pathTransition4.stop();
-                ft4.play();
-                birdd.setImage(bird4x);
-                score(15);
+                if (bird4.getFlag() == 0 && gamealive == 1){
+                    bird4.getPathTransition().stop();
+                    bird4.getFt().play();
+                    bird4.getBirdo().setImage(bird4.getBlood());
+                    score(10);
                 }
-                flag4 = 1;
-                }
-    
+                bird4.setFlag(1);
+            }
+
         });
-       
-        birde.setX(5); birde.setY(60);
-        birde.setFitWidth(150);birde.setFitHeight(150);
-        
-        ft5.setFromValue(1.0);
-        ft5.setToValue(0.0);
-        ft5.setCycleCount(1);
-        
-        
-        path5.getElements().add(new MoveTo(80,100));
-        path5.getElements().add(new HLineTo(855));
-        pathTransition5.setDuration(Duration.seconds(6));
-        pathTransition5.setPath(path5);
-        pathTransition5.setNode(birde);
-        pathTransition5.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition5.setCycleCount(Timeline.INDEFINITE);
-//        pathTransition.setAutoReverse(true);
-        
-       birde.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+        // END BIRD 4
+
+        // START CANARY 1
+        canary1.getBirdo().setX(5);
+        canary1.getBirdo().setY(60);
+        canary1.getBirdo().setFitWidth(150);
+        canary1.getBirdo().setFitHeight(150);
+
+        canary1.getFt().setFromValue(1.0);
+        canary1.getFt().setToValue(0.0);
+        canary1.getFt().setCycleCount(1);
+
+        canary1.getPath().getElements().add(new MoveTo(80,100));
+        canary1.getPath().getElements().add(new CubicCurveTo(524, 54, 24, 145, 4, 0));
+        canary1.getPath().getElements().add(new CubicCurveTo(0, 23, 0, 34, 423, 234));
+        canary1.getPathTransition().setDuration(Duration.seconds(2));
+        canary1.getPathTransition().setPath(canary1.getPath());
+        canary1.getPathTransition().setNode(canary1.getBirdo());
+        canary1.getPathTransition().setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        canary1.getPathTransition().setCycleCount(Timeline.INDEFINITE);
+
+        canary1.getBirdo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-                if (flag5 == 0 && gamealive == 1){
-                pathTransition5.stop();
-                ft5.play();
-                birde.setImage(bird5x);
-                score(10);
+                if (canary1.getFlag() == 0 && gamealive == 1){
+                    canary1.getPathTransition().stop();
+                    canary1.getFt().play();
+                    canary1.getBirdo().setImage(canary1.getBlood());
+                    score(15);
+                    gameover();
                 }
-                flag5 = 1;
-                }
-    
+                canary1.setFlag(1);
+            }
+
         });
-       
-        birdf.setX(5); birdf.setY(60);
-        birdf.setFitWidth(180);birdf.setFitHeight(180);
-        
-        ft6.setFromValue(1.0);
-        ft6.setToValue(0.0);
-        ft6.setCycleCount(1);
-        
-        
-        path6.getElements().add(new MoveTo(80,100));
-        path6.getElements().add(new HLineTo(455));
-        pathTransition6.setDuration(Duration.seconds(1));
-        pathTransition6.setPath(path6);
-        pathTransition6.setNode(birdf);
-        pathTransition6.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition6.setCycleCount(Timeline.INDEFINITE);
-//        pathTransition.setAutoReverse(true);
-        
-       birdf.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
+        // END CANARY 1
+
+        // START CANARY 2
+        canary2.getBirdo().setX(5);
+        canary2.getBirdo().setY(60);
+        canary2.getBirdo().setFitWidth(150);
+        canary2.getBirdo().setFitHeight(150);
+
+        canary2.getFt().setFromValue(1.0);
+        canary2.getFt().setToValue(0.0);
+        canary2.getFt().setCycleCount(1);
+
+        canary2.getPath().getElements().add(new MoveTo(80,100));
+        canary2.getPath().getElements().add(new HLineTo(455));
+        canary2.getPathTransition().setDuration(Duration.seconds(1));
+        canary2.getPathTransition().setPath(canary2.getPath());
+        canary2.getPathTransition().setNode(canary2.getBirdo());
+        canary2.getPathTransition().setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        canary2.getPathTransition().setCycleCount(Timeline.INDEFINITE);
+
+        canary2.getBirdo().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-                if (flag6 == 0 && gamealive == 1){
-//                pathTransition3.stop();
-//                ft3.play();
-                birdf.setImage(bird6x);
-                score(15);
-                gameover();
+                if (canary2.getFlag() == 0 && gamealive == 1){
+                    canary2.getPathTransition().stop();
+                    canary2.getFt().play();
+                    canary2.getBirdo().setImage(canary2.getBlood());
+                    score(15);
+                    gameover();
                 }
-                flag6 = 1;
-                }
-    
+                canary2.setFlag(1);
+            }
+
         });
-       
-         
+        // END CANARY 2
        
         btn.setText("START GAME");
         btn.setLayoutX(250); btn.setLayoutY(420);
@@ -339,37 +304,21 @@ public class activity1211 extends Application {
             @Override
             public void handle(ActionEvent event) {
                 if(btn.getOpacity() == 1){
-//                    startgame();
-                  pathTransition.play();
-                  pathTransition2.play();
-                  pathTransition3.play();
-                  pathTransition4.play();
-                  pathTransition5.play();
-                  pathTransition6.play();
-                  background.setOpacity(1);
-                  background.toBack();
-                  splashscreen.setOpacity(0);
-                  splashscreen.toBack();
-                  btn.setOpacity(0);
-                  btn.toBack();
+                    bird1.getPathTransition().play();
+                    bird2.getPathTransition().play();
+                    bird3.getPathTransition().play();
+                    bird4.getPathTransition().play();
+                    canary1.getPathTransition().play();
+                    canary2.getPathTransition().play();
+                    background.setOpacity(1);
+                    background.toBack();
+                    splashscreen.setOpacity(0);
+                    splashscreen.toBack();
+                    btn.setOpacity(0);
+                    btn.toBack();
                 }
             }
-        }); 
-        
-       
-//        btn2.setText("Stop");
-//        btn2.setLayoutX(50); btn2.setLayoutY(5);
-//        btn2.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-////              ft.stop();
-//                pathTransition.stop();
-//                pathTransition2.stop();
-//                pathTransition3.stop();
-//                
-//            }
-//        });
+        });
         
         btnrestart.setText("RESTART GAME");
         btnrestart.setLayoutX(200); btnrestart.setLayoutY(390);
@@ -383,14 +332,27 @@ public class activity1211 extends Application {
                 }
             }
         });
-        
+
+        btnscore.setText("SCORES");
+        btnscore.setLayoutX(400); btnscore.setLayoutY(390);
+        btnscore.setOpacity(0);
+        btnscore.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if(btnscore.getOpacity() == 1){
+                    restartgame();
+                }
+            }
+        });
+
         Pane root = new Pane();
-        root.getChildren().addAll(gmeovr, btnrestart, lbl, lblscore, background, birda, birdb, birdc, birdd, birde, birdf, splashscreen, btn);
+        root.getChildren().addAll(gmeovr, btnrestart, lbl, lblscore, background, bird1.getBirdo(), bird2.getBirdo(), bird3.getBirdo(), bird4.getBirdo(), canary1.getBirdo(), canary2.getBirdo(), splashscreen, btn);
         
-        Scene scene = new Scene(root, 510, 500);
+        Scene scene = new Scene(root, 1280, 720);
         scene.setCursor(new ImageCursor(target,250,50));
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Cazapatos!");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -402,63 +364,77 @@ public class activity1211 extends Application {
         launch(args);
     }
     public void score(int iskor){
-            lblscore.setText(Integer.toString(Integer.parseInt(lblscore.getText()) + iskor));
+        lblscore.setText(Integer.toString(Integer.parseInt(lblscore.getText()) + iskor));
         
-        }
+    }
      
     public void gameover(){
-            pathTransition.stop();
-            pathTransition2.stop();
-            pathTransition3.stop();
-            pathTransition4.stop();
-            pathTransition5.stop();
-            pathTransition6.stop();
-            gamealive = 0;
-            gmeovr.setOpacity(1);
-            gmeovr.toFront();
-            btnrestart.setOpacity(1);
-            btnrestart.toFront();
+        bird1.getPathTransition().stop();
+        bird1.getBirdo().setOpacity(0);
+        bird2.getPathTransition().stop();
+        bird2.getBirdo().setOpacity(0);
+        bird3.getPathTransition().stop();
+        bird3.getBirdo().setOpacity(0);
+        bird4.getPathTransition().stop();
+        bird4.getBirdo().setOpacity(0);
+        canary1.getPathTransition().stop();
+        canary1.getBirdo().setOpacity(0);
+        canary2.getPathTransition().stop();
+        canary2.getBirdo().setOpacity(0);
+
+        gamealive = 0;
+        gmeovr.setOpacity(1);
+        gmeovr.toFront();
+        btnrestart.setOpacity(1);
+        btnrestart.toFront();
 
     }
       
     public void restartgame(){
-             
-             flag = 0;
-             flag2 = 0;
-             flag3 = 0;
-             flag4 = 0;
-             flag5 = 0;
-             flag6 = 0;
-             gamealive = 1;            
-             pathTransition.play();
-             pathTransition2.play();
-             pathTransition3.play();
-             pathTransition4.play();
-             pathTransition5.play();
-             pathTransition6.play();
-             birda.setOpacity(1);
-             birdb.setOpacity(1);
-             birdc.setOpacity(1);
-             birdd.setOpacity(1);
-             birde.setOpacity(1);
-             birdf.setOpacity(1);
-             gmeovr.setOpacity(0);
-             gmeovr.toBack();
-             btnrestart.setOpacity(0);
-             btnrestart.toBack();
-             birda.setImage(bird);
-             birdb.setImage(bird2);
-             birdc.setImage(bird3);
-             birdd.setImage(bird4);
-             birde.setImage(bird5);
-             birdf.setImage(bird6);
-             ft.stop();
-             ft2.stop();
-             ft3.stop();
-             ft4.stop();
-             ft5.stop();
-             ft6.stop();
-             lblscore.setText("0");
-      }
+
+        bird1.setFlag(0);
+        bird2.setFlag(0);
+        bird3.setFlag(0);
+        bird4.setFlag(0);
+        canary1.setFlag(0);
+        canary2.setFlag(0);
+
+        gamealive = 1;
+
+        bird1.getPathTransition().play();
+        bird2.getPathTransition().play();
+        bird3.getPathTransition().play();
+        bird4.getPathTransition().play();
+        canary1.getPathTransition().play();
+        canary2.getPathTransition().play();
+
+        bird1.getBirdo().setOpacity(1);
+        bird2.getBirdo().setOpacity(1);
+        bird3.getBirdo().setOpacity(1);
+        bird4.getBirdo().setOpacity(1);
+        canary1.getBirdo().setOpacity(1);
+        canary2.getBirdo().setOpacity(1);
+
+        gmeovr.setOpacity(0);
+        gmeovr.toBack();
+        btnrestart.setOpacity(0);
+        btnrestart.toBack();
+
+        bird1.getBirdo().setImage(bird1.getBird());
+        bird2.getBirdo().setImage(bird2.getBird());
+        bird3.getBirdo().setImage(bird3.getBird());
+        bird4.getBirdo().setImage(bird4.getBird());
+        canary1.getBirdo().setImage(canary1.getBird());
+        canary2.getBirdo().setImage(canary2.getBird());
+
+        bird1.getFt().stop();
+        bird2.getFt().stop();
+        bird3.getFt().stop();
+        bird4.getFt().stop();
+        canary1.getFt().stop();
+        canary2.getFt().stop();
+
+        lblscore.setText("0");
+    }
       
 }
