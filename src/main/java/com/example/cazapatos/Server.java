@@ -3,11 +3,13 @@ package com.example.cazapatos;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ServerRatanoid {
+public class Server {
     private int port;
 
-    public ServerRatanoid(int port) {
+    public Server(int port) {
         this.port = port;
     }
 
@@ -25,6 +27,7 @@ public class ServerRatanoid {
                 client.start();
             }
         } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             clientSocket.close();
@@ -35,7 +38,7 @@ public class ServerRatanoid {
     }
 
     public static void main(String[] args) {
-        ServerRatanoid server = new ServerRatanoid(5557);
+        Server server = new Server(5555);
         server.listen();
     }
 }

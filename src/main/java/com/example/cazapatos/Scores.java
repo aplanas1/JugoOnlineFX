@@ -1,6 +1,8 @@
 package com.example.cazapatos;
 
-public class Scores {
+import java.io.Serializable;
+
+public class Scores implements Serializable {
     String name;
     int score;
 

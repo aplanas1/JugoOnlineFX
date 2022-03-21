@@ -36,18 +36,22 @@ public class ThreadSevidorObjJugador implements Runnable{
     public void run() {
         try {
             while (!acabat) {
-                scores = archivo.Leer();
+                scores = archivo.read();
                 //LLegim l'objecte Jugador del stream input
                 Scores score = (Scores) input.readObject();
                 scores.add(score);
 
                 //comprobamos lo que recibe el servidor
-                System.out.println(score.name + " " + score.score);
+                //System.out.println(score.name + " " + score.score);
 
-                archivo.Escribir(scores);
+                archivo.write(scores);
+
+                for (Scores sc: scores) {
+                    System.out.println(sc.toString());
+                }
 
                 //tornem la llista al client per l'output
-                output.writeObject(archivo.Leer());
+                output.writeObject(archivo.read());
                 output.flush();
 
                 acabat = true;

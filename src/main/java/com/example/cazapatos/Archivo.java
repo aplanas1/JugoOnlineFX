@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class Archivo {
 
-    public void Escribir(List<Scores> scores) {
+    public void write(List<Scores> scores) {
 
         try {
-            FileWriter fileWriter = new FileWriter("scores.txt", true);
+            FileWriter fileWriter = new FileWriter("scores.txt");
             for (Scores score: scores) {
                 fileWriter.write(score.toString() + "\n");
             }
@@ -21,9 +21,8 @@ public class Archivo {
         }
     }
 
-    public List<Scores> Leer() {
+    public List<Scores> read() {
         List<Scores> scoreList = new ArrayList<>();
-        List<Scores> ordenador = new ArrayList<>();
         String nombre = "";
         int puntos;
 
@@ -34,23 +33,8 @@ public class Archivo {
             while (scanner.hasNext()) {
                 nombre = scanner.next();
                 puntos = scanner.nextInt();
-                //scoreList.add(new Scores(nombre, puntos));
-                ordenador.add(new Scores(nombre, puntos));
-            }
 
-            while(ordenador.size() > 0){
-                int posNotaMax = 0;
-                for (int i = 0; i < ordenador.size(); i++) {
-                    if(ordenador.get(i).score > ordenador.get(posNotaMax).score){
-                        posNotaMax = i;
-                    }
-                }
-                scoreList.add(ordenador.get(posNotaMax));
-                ordenador.remove(posNotaMax);
-            }
-
-            for (Scores s: scoreList) {
-                System.out.println(s.toString());
+                scoreList.add(new Scores(nombre, puntos));
             }
 
         } catch (FileNotFoundException e) {
